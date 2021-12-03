@@ -60,29 +60,101 @@ int	ft_valid_fd(char *str, int ac)
 	return (fd);
 }
 
-void	ft_get_map(int fd, char *av)
+void	ft_get_map(int fd, char *av, t_game *maps)
 {
-	int		count;
 	char	*line;
-	char	**tab;
 	int		i;
 
 	line = NULL;
-	count = 1;
-	tab = NULL;
-	while ((get_next_line(fd, &line)) == 1)
+	while (get_next_line(fd, &line) == 1)
 	{
-		count++;
+		maps->y++;
 		free(line);
 	}
-	tab = malloc(sizeof(char **) * count + 1);
+	free(line);
+	maps->map = malloc(sizeof(char *) * (maps->y + 1));
+	i = -1;
 	fd = open(av, O_RDONLY);
-	i = 0;
-	while (i < count)
+	i = -1;
+	while (++i < maps->y)
 	{
 		get_next_line(fd, &line);
-		tab[i] = ft_strdup(line);
-		i++;
+		maps->map[i] = ft_strdup(line);
+		maps->x = ft_strlen(line);
 		free(line);
+	}
+	maps->map[i] = 0;
+}
+
+
+void	ft_pars_map(t_game *maps)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (maps->map[i])
+	{
+		j = 0;
+		while (maps->map[i][j])
+		{
+			if (maps->map[i][j] == 'P')
+				maps->p++;
+			else if (maps->map[i][j] == 'E')
+				maps->e++;
+			else if (maps->map[i][j] == 'C')
+				maps->c++;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_error_map(t_game *maps)
+{
+	ft_pars_map(maps);
+	if (maps->p < 1 || maps->p > 1)
+	{
+		ft_putstr_fd("Error : WTF Bro need  Just 1 player !!\n", 1);
+		exit(EXIT_FAILURE);
+	}
+	if (maps->c < 1)
+	{
+		ft_putstr_fd("Error : WTF Bro Need At Least One Collectible\n", 1);
+		exit(EXIT_FAILURE);
+	}
+	if (maps->e < 1)
+	{
+		ft_putstr_fd("Error : WTF Bro Need At Least One Exit\n", 1);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_check_x(char **str, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[0][i] && str[y - 1][i] && i < x)
+	{
+		if (str[0][i] != '1' || str[y - 1][i] != '1')
+		{
+			ft_putstr_fd("Error : Map Not Closed\n", 1);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+	i = 0;
+	j = 0;
+	while (str[i] && str[i][x - 1] && i < y)
+	{
+		while (str[i][j] != '1' || str[i][x - 1] != '1')
+		{
+			ft_putstr_fd("Error : Map Not Closed\n", 1);
+			exit(EXIT_FAILURE);
+			j++;
+		}
+		i++;
 	}
 }

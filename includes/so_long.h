@@ -30,12 +30,15 @@ typedef struct s_init
 	void	*init_window;
 }			t_init;
 
-typedef struct s_map
+typedef struct s_game
 {
-	int	e;
-	int	p;
-	int	c;
-}			t_map;
+	char	**map;
+	int		x;
+	int		y;
+	int		p;
+	int		c;
+	int		e;
+}			t_game;
 
 /******* FONCTION UTILS *******/
 
@@ -53,9 +56,14 @@ char	*ft_strdup(const char *s1);
 /******* FONCTION PARSING *******/
 
 int		ft_pars_ber(int ac, char **av);
-void	init_minilibx(void);
+void	ft_init_minilibx(void);
 int		ft_valid_fd(char *av, int ac);
 int		ft_check_map(int fd);
-void	ft_get_map(int fd, char *av);
+void	ft_get_map(int fd, char *av, t_game *maps);
+void	ft_init_struc(t_game *maps);
+void	ft_pars_map(t_game *maps);
+void	ft_error_map(t_game *maps);
+void	ft_check_x(char **str, int x, int y);
+void	ft_check_y(char **str, int x, int y);
 
 #endif

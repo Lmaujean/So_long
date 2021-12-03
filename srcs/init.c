@@ -12,11 +12,20 @@
 
 #include "../includes/so_long.h"
 
-void	init_minilibx(void)
+void	ft_init_minilibx(void)
 {
 	t_init	init;
 
 	init.init_mlx = mlx_init();
 	init.init_window = mlx_new_window(init.init_mlx, 500, 500, "So_long");
 	mlx_loop(init.init_mlx);
+}
+
+void	ft_init_struc(t_game *maps)
+{
+	maps->y = 1;
+	maps->x = 0;
+// 	maps->p = 0;
+// 	maps->c = 0;
+// 	maps->e = 0;
 }
