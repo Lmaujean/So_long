@@ -98,3 +98,22 @@ char	**ft_split(char const *s, char c)
 	}
 	return (kherz);
 }
+
+void	ft_free_exit(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	if (ptr)
+	{
+		while (ptr[i])
+		{
+			free(ptr[i]);
+			ptr[i] = 0;
+			i++;
+		}
+		free(ptr);
+		ptr = 0;
+		exit(EXIT_FAILURE);
+	}
+}

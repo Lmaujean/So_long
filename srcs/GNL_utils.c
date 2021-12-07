@@ -12,23 +12,6 @@
 
 #include "../includes/so_long.h"
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*str;
-	size_t	i;
-
-	str = malloc(size * count);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i != size * count)
-	{
-		str[i] = 0;
-		i++;
-	}	
-	return (str);
-}
-
 char	*ft_strdup(const char *src)
 {
 	size_t	i;

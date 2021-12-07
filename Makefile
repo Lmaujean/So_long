@@ -22,10 +22,13 @@ MLX= -lmlx -framework OpenGL -framework AppKit
 
 SRC =	./srcs/main.c\
 		./srcs/utils.c\
+		./srcs/utils2.c\
 		./srcs/pars.c\
 		./srcs/init.c\
 		./srcs/GNL_utils.c\
 		./srcs/GNL.c\
+		./srcs/map.c\
+		./srcs/stock.c\
 
 OBJ = $(SRC:.c=.o)
 
