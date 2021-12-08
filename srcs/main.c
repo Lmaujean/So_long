@@ -11,14 +11,24 @@
 /* ************************************************************************** */
 #include "../includes/so_long.h"
 
+void	launch_game(t_game *game)
+{
+	game->main.img = mlx_new_image(game->init_mlx, game->line.x * PXL, \
+									game->line.y * PXL);
+	create_img(&game->main, game->main.img);
+	game->main.height = game->line.y * PXL;
+	game->main.width = game->line.x * PXL;
+	mlx_put_img_to_img(&game->main, &game->img[0], 15, 0);
+	mlx_put_image_to_window(game->init_mlx, game->init_window, \
+							game->main.img, 0, 0);
+	mlx_loop(game->init_mlx);
+}
+
 int	main(int ac, char **av)
 {
 	int		fd;
 	t_game	game;
-	int	i;
-	int j;
 
-	i = 0;
 	ft_init_struc(&game);
 	fd = ft_valid_fd(av[1], ac);
 	if (fd)
@@ -27,30 +37,14 @@ int	main(int ac, char **av)
 		ft_get_map(fd, av[1], &game);
 		ft_error_map(&game);
 		ft_check_wall(game.map, game.line.x, game.line.y);
+		close(fd);
 		if (!ft_init_minilibx(&game))
 		{
 			printf("Error:\n");
 			ft_free_game(&game);
 			exit(EXIT_FAILURE);
 		}
-		if (game.img[0].img)
-		{
-			while (game.map[i])
-			{
-				j = 0;
-				while(game.map[i][j])
-				{
-					mlx_put_image_to_window(game.init_mlx, game.init_window, game.img[0].img, j * PXL, i * PXL);
-					j++;
-				}
-				i++;
-
-			}
-			mlx_loop(game.init_mlx);
-		}
-		else
-			printf("img bug vaut NULL\n");
-		close(fd);
+		launch_game(&game);
 	}
 	return (0);
 }

@@ -12,6 +12,25 @@
 
 #include "../includes/so_long.h"
 
+// void	ft_choose_img(t_game *game, int x, int y)
+// {
+// 	if (game->map[y][x] == '1')
+// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, WALL1, \
+// 		game->img->width, game->img->height);
+// 	else if (game->map[y][x] == '0')
+// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, FLOOR, \
+// 		game->img->width, game->img->height);
+// 	else if (game->map[y][x] == 'P')
+// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, PLAYER_RIGHT1, \
+// 		game->img->width, game->img->height);
+// 	else if (game->map[y][x] == 'C')
+// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, COLLEC, \
+// 		game->img->width, game->img->height);
+// 	else if (game->map[y][x] == 'E')
+// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, EXIT, \
+// 		game->img->width, game->img->height);
+// }
+
 void	ft_size_window(t_game *game)
 {
 	if (game->line.x * PXL > DEF_L)
@@ -38,8 +57,9 @@ int	ft_init_img(t_game *game)
 	{
 		game->img[i].img = NULL;
 		game->img[i].img = mlx_xpm_file_to_image(game->init_mlx, PLAYER_FACE1, &game->img[i].width, &game->img[i].height);
-		if (!game->img[i].img)
-			return (0);
+		create_img(&game->img[i], game->img[i].img);
+		game->img[i].width = PXL;
+		game->img[i].height = PXL;
 		i++;
 	}
 	return (1);
@@ -52,21 +72,17 @@ int	ft_init_minilibx(t_game *game)
 	game->init_window = NULL;
 	game->init_mlx = mlx_init();
 	if (!game->init_mlx)
-	{
 		return (0);
-	}
-	game->init_window = mlx_new_window(game->init_mlx, game->wind.x, game->wind.y, \
-										"So_long");
+	game->init_window = mlx_new_window(game->init_mlx, game->wind.x, \
+										game->wind.y, "So_long");
 	if (!game->init_window)
-	{
 		return (0);
-	}
 	if (ft_init_img(game) == 0)
-	{
 		return (0);
-	}
-	return(1);
+	return (1);
 }
+
+
 
 void	ft_init_struc(t_game *maps)
 {

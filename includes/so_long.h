@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-
+# include "../mlx_utils/header/mlx_utils.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -22,24 +22,13 @@
 #ifdef __linux__
 #  include "../mlx_linux/mlx.h"
 # elif __APPLE__
-#  include "mlx.h"
+#  include <mlx.h>
 #endif
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
 /******* STRUC INIT MLX *******/
-
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		size_l;
-	int		endian;
-	int		width;
-	int		height;
-}			t_img;
 
 typedef struct s_pos
 {
@@ -54,6 +43,7 @@ typedef struct s_game
 	char	**map;
 	t_pos	wind;
 	t_img	*img;
+	t_img	main;
 	t_pos	line;
 	int		p;
 	int		c;

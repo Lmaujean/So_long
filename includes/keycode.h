@@ -10,31 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_KEYCODE_H
-# define MLX_KEYCODE_H
+#ifndef KEYCODE_H
+# define KEYCODE_H
 
 # define WALL1 "../xpmfile/wall/wall1.xpm"
-# define WALL2 "../xpmfile/wall/wall2.xpm"
 # define FLOOR "../xpmfile/floor/floor.xpm"
 # define PLAYER_FACE1 "xpmfile/player_face/down_1.xpm"
-# define PLAYER_FACE2 "../xpmfile/player/player_face/player_face2.xpm"
-# define PLAYER_FACE3 "../xpmfile/player/player_face/player_face3.xpm"
-# define PLAYER_RIGHT1 "../xpmfile/player/player_right/player_right1.xpm"
-# define PLAYER_RIGHT2 "../xpmfile/player/player_right/player_right2.xpm"
-# define PLAYER_RIGHT3 "../xpmfile/player/player_right/player_right3.xpm"
-# define PLAYER_LEFT1 "../xpmfile/player/player_left/player_left1.xpm"
-# define PLAYER_LEFT2 "../xpmfile/player/player_left/player_left2.xpm"
-# define PLAYER_LEFT3 "../xpmfile/player/player_left/player_left3.xpm"
-# define PLAYER_BACK1 "../xpmfile/player/player_back/player_back1.xpm"
-# define PLAYER_BACK2 "../xpmfile/player/player_back/player_back2.xpm"
-# define PLAYER_BACK3 "../xpmfile/player/player_back/player_back3.xpm"
+# define PLAYER_RIGHT1 "../xpmfile/player_right/right.xpm"
+# define PLAYER_LEFT1 "../xpmfile/player_left/left.xpm"
+# define PLAYER_BACK1 "../xpmfile/player_back/up.xpm"
 # define COLLEC "../xpmfile/collec/collec.xpm"
+# define EXIT "../xpmfile/exit/exit.xpm"
 # define PXL 64
 # define DEF_H 800 /*hauteur*/
 # define DEF_L 800 /*largeur*/
-# define NBR_IMG 3
-
-
+# define NBR_IMG 8
 
 # ifdef __linux__
 #  define KEY_Q 113

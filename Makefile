@@ -64,12 +64,12 @@ OBJS_BNS		= ${SRC_BNS:.c=.o}
 OS				= $(shell uname -s)
 
 ifeq ($(OS),Darwin)
-LIB				= -framework OpenGL -framework AppKit
-COMPIL_MLX		=
+LIB				= -lmlx -framework OpenGL -framework AppKit ./mlx_utils/mlx_utils.a
 endif
 ifeq ($(OS),Linux)
-LIB				= ./mlx_linux/libmlx.a -lXext -lX11
+LIB				= ./mlx_linux/libmlx.a -lXext -lX11 ./mlx_utils/mlx_utils.a
 COMPIL_MLX		= make -C ./mlx_linux
+CLEAN			= clean
 endif
 ifdef BONUS
 OBJ				= ${OBJS_BNS} ${OBJS_COM}
@@ -104,7 +104,7 @@ all:		${NAME}
 clean:
 			@printf "$(RED)Destroying ${NAME} objs (*.o)\n$(RES)"
 			@${RM} ${OBJS} ${OBJS_BNS} ${OBJS_COM}
-			@${COMPIL_MLX} clean
+			@${COMPIL_MLX} ${CLEAN}
 
 fclean:		clean
 			@printf "$(RED)Destroying ${NAME} executable\n$(RES)"
