@@ -10,46 +10,129 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+#############################################################################
+#							BASIC DECLARATION								#
+#############################################################################
+NAME			= so_long
+CC				= gcc
+RM				= rm -f
+CFLAGS			= -Wall -Wextra -Werror
 
-CC= gcc
+#############################################################################
+#							HEADER DECLARATION								#
+#############################################################################
+FOLDER_HDR		= includes/
 
-CFLAGS= -Wall -Wextra -Werror  #-g -fsanitize=address
+HEADER_SRC		= so_long.h
+HEADER_BNS		= so_long_bonus.h
 
-RM= rm -f
+#############################################################################
+#							SOURCES DECLARATION								#
+#############################################################################
+FOLDER			= srcs/
+FOLDER_COM		= srcs_com/
+FOLDER_BNS		= srcs_bonus/
 
-MLX= -lmlx -framework OpenGL -framework AppKit
+SRCS			= 	main.c\
+					init.c\
+					map.c\
+					pars.c\
+					stock.c\
+					
 
-SRC =	./srcs/main.c\
-		./srcs/utils.c\
-		./srcs/utils2.c\
-		./srcs/pars.c\
-		./srcs/init.c\
-		./srcs/GNL_utils.c\
-		./srcs/GNL.c\
-		./srcs/map.c\
-		./srcs/stock.c\
+SRCS_COM		= 	GNL_utils.c\
+					GNL.c\
+					utils.c\
+					utils2.c\
 
-OBJ = $(SRC:.c=.o)
+SRCS_BNS		= main_bonus.c
 
-%.o: %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+#############################################################################
+#					ADDING PATH VALUES TO SOURCES FILES						#
+#############################################################################
+SRC				= $(addprefix ${FOLDER}, ${SRCS})
+SRC_COM			= $(addprefix ${FOLDER_COM}, ${SRCS_COM})
+SRC_BNS			= $(addprefix ${FOLDER_BNS}, ${SRCS_BNS})
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX) -o $(NAME)
+OBJS			= ${SRC:.c=.o}
+OBJS_COM		= ${SRC_COM:.c=.o}
+OBJS_BNS		= ${SRC_BNS:.c=.o}
 
-all: $(NAME)
+#############################################################################
+#				CHOOSE OF FILES FOR MAC or LINUX							#
+#############################################################################
+OS				= $(shell uname -s)
+
+ifeq ($(OS),Darwin)
+LIB				= -framework OpenGL -framework AppKit
+COMPIL_MLX		=
+endif
+ifeq ($(OS),Linux)
+LIB				= ./mlx_linux/libmlx.a -lXext -lX11
+COMPIL_MLX		= make -C ./mlx_linux
+endif
+ifdef BONUS
+OBJ				= ${OBJS_BNS} ${OBJS_COM}
+HEADER			= $(addprefix ${FOLDER_HDR}, ${HEADER_SRC}) \
+					$(addprefix ${FOLDER_HDR}, ${HEADER_BNS})
+else
+OBJ				= ${OBJS} ${OBJS_COM}
+HEADER			= $(addprefix ${FOLDER_HDR}, ${HEADER_SRC})
+endif
+
+#############################################################################
+#							DEBUG DECLARATION								#
+#############################################################################
+ifdef DEBUG
+DFLAGS			= -g -fsanitize=address
+endif
+
+#############################################################################
+#								BASIC 42 RULES								#
+#############################################################################
+
+%.o: %.c	${HEADER}
+			@${CC} ${DFLAGS} ${CFLAGS} -c -o $@ $<
+
+${NAME}:	${OBJ}
+			${COMPIL_MLX}
+			@printf "$(GREEN)Creating ${NAME} executable\n$(RES)"
+			@${CC} ${DFLAGS} ${CFLAGS} ${OBJ} ${LIB} -o ${NAME}
+
+all:		${NAME}
 
 clean:
-	$(RM) $(OBJ)
+			@printf "$(RED)Destroying ${NAME} objs (*.o)\n$(RES)"
+			@${RM} ${OBJS} ${OBJS_BNS} ${OBJS_COM}
+			@${COMPIL_MLX} clean
 
-fclean: clean
-	$(RM) $(OBJ)
-	$(RM) $(NAME)
-			
-reset: clean
-	$(RM) $(NAME)
+fclean:		clean
+			@printf "$(RED)Destroying ${NAME} executable\n$(RES)"
+			@${RM} ${NAME}
 
-re: fclean all
+re:			fclean all
 
-.PHONY: clean fclean all re reset
+bonus:
+			@${MAKE} --no-print-directory BONUS=1
+
+#############################################################################
+#								CUSTOM RULES								#
+#############################################################################
+debug:		clean
+			@printf "$(BLUE)Added Debug Flags !\n$(RES)"
+			@${MAKE} -s --no-print-directory DEBUG=1
+			@${MAKE} -s --no-print-directory clean
+			@printf "$(BLUE)Next make wil recompile without debug flags :)\n$(RES)"
+
+norm:
+			norminette includes/ srcs/ srcs_com/ srcs_bonus/
+
+.PHONY:		all clean fclean re bonus norm debug
+
+#############################################################################
+#								COLOR SET									#
+#############################################################################
+RES			= \e[0m
+RED			= \e[1;31m
+GREEN		= \e[1;32m
+BLUE		= \e[1;34m

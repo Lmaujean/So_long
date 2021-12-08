@@ -73,7 +73,8 @@ void	ft_check_y(char **str, int x, int y)
 		while (str[i][j] != '1' || str[i][x - 1] != '1')
 		{
 			ft_putstr_fd("Error:\nMap Not Closed\n", 1);
-			ft_free_exit(str);
+			ft_freedouble(str);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -91,12 +92,14 @@ void	ft_check_rectangular(char **str)
 		if (ft_strlen(str[i]) != 0 && j != ft_strlen(str[i]))
 		{
 			ft_putstr_fd("Error:\nMap Not Rectangular\n", 1);
-			ft_free_exit(str);
+			ft_freedouble(str);
+			exit(EXIT_FAILURE);
 		}
 		if (ft_strlen(str[i]) == 0 && str[i + 1] && ft_strlen(str[i + 1]) == 0)
 		{
 			ft_putstr_fd("Error:\nMap Not Valid\n", 1);
-			ft_free_exit(str);
+			ft_freedouble(str);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -112,7 +115,8 @@ void	ft_check_wall(char **str, int x, int y)
 		if (str[0][i] != '1' || str[y - 1][i] != '1')
 		{
 			ft_putstr_fd("Error:\nMap Not Closed\n", 1);
-			ft_free_exit(str);
+			ft_freedouble(str);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}

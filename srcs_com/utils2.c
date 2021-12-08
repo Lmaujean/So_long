@@ -99,7 +99,7 @@ char	**ft_split(char const *s, char c)
 	return (kherz);
 }
 
-void	ft_free_exit(char **ptr)
+void	ft_freedouble(char **ptr)
 {
 	int	i;
 
@@ -114,6 +114,17 @@ void	ft_free_exit(char **ptr)
 		}
 		free(ptr);
 		ptr = 0;
-		exit(EXIT_FAILURE);
 	}
+}
+
+void	ft_free_game(t_game *game)
+{
+	if (game->map)
+		ft_freedouble(game->map);
+	if (game->init_window)
+		free(game->init_window);
+	if (game->init_mlx)
+		free(game->init_mlx);
+	if (game->img)
+		free(game->img);
 }

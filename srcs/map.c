@@ -20,19 +20,19 @@ void	ft_get_map(int fd, char *av, t_game *maps)
 	line = NULL;
 	while (get_next_line(fd, &line) == 1)
 	{
-		maps->y++;
+		maps->line.y++;
 		free(line);
 	}
 	free(line);
-	maps->map = malloc(sizeof(char *) * (maps->y + 1));
+	maps->map = malloc(sizeof(char *) * (maps->line.y + 1));
 	i = -1;
 	fd = open(av, O_RDONLY);
 	i = -1;
-	while (++i < maps->y)
+	while (++i < maps->line.y)
 	{
 		get_next_line(fd, &line);
 		maps->map[i] = ft_strdup(line);
-		maps->x = ft_strlen(line);
+		maps->line.x = ft_strlen(line);
 		free(line);
 	}
 	maps->map[i] = 0;
@@ -56,7 +56,8 @@ void	ft_pars_map(t_game *maps)
 				maps->map[i][j] != '1')
 			{
 				ft_putstr_fd("Error:\nInvalid Caractere On Map\n", 1);
-				ft_free_exit(maps->map);
+				ft_freedouble(maps->map);
+				exit(EXIT_FAILURE);
 			}
 			if (maps->map[i][j] == 'P')
 				maps->p++;
@@ -94,16 +95,19 @@ void	ft_error_map(t_game *maps)
 	if (maps->p < 1 || maps->p > 1)
 	{
 		ft_putstr_fd("Error:\nWTF Bro need  Just 1 player !!\n", 1);
-		ft_free_exit(maps->map);
+		ft_freedouble(maps->map);
+		exit(EXIT_FAILURE);
 	}
 	if (maps->c < 1)
 	{
 		ft_putstr_fd("Error:\nWTF Bro Need At Least One Collectible\n", 1);
-		ft_free_exit(maps->map);
+		ft_freedouble(maps->map);
+		exit(EXIT_FAILURE);
 	}
 	if (maps->e < 1)
 	{
 		ft_putstr_fd("Error:\nWTF Bro Need At Least One Exit\n", 1);
-		ft_free_exit(maps->map);
+		ft_freedouble(maps->map);
+		exit(EXIT_FAILURE);
 	}
 }
