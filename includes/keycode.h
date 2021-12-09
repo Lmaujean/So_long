@@ -21,10 +21,11 @@
 # define PLAYER_BACK1 "xpmfile/player_back/up.xpm"
 # define COLLEC "xpmfile/collec/collect.xpm"
 # define EXIT "xpmfile/exit/Exit.xpm"
+# define BG "xpmfile/BG/BGLOL.xpm"
 # define PXL 64
 # define DEF_H 800 /*hauteur*/
 # define DEF_L 800 /*largeur*/
-# define NBR_IMG 8
+# define NBR_IMG 9
 
 # ifdef __linux__
 #  define KEY_Q 113

@@ -36,3 +36,17 @@ void	ft_choose_img(t_game *game)
 		}
 	}
 }
+
+int	ft_cam_x(t_game *game)
+{
+	const int	calc = -800 * ((game->player.x * PXL) / 800);
+
+	return (calc);
+}
+
+int	ft_cam_y(t_game *game)
+{
+	const int	calc = -800 * ((game->player.y * PXL) / 800);
+
+	return (calc);
+}

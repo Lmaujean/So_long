@@ -39,6 +39,14 @@ void	ft_get_map(int fd, char *av, t_game *maps)
 	ft_check_rectangular(maps->map);
 }
 
+void	ft_player(t_game *maps, int i, int j)
+{
+	maps->map[i][j] = '0';
+	maps->player.x = j;
+	maps->player.y = i;
+	maps->p++;
+}
+
 void	ft_pars_map(t_game *maps)
 {
 	int	i;
@@ -59,12 +67,7 @@ void	ft_pars_map(t_game *maps)
 				exit(EXIT_FAILURE);
 			}
 			if (maps->map[i][j] == 'P')
-			{
-				maps->map[i][j] = '0';
-				maps->player.x = j;
-				maps->player.y = i;
-				maps->p++;
-			}
+				ft_player(maps, i, j);
 			else if (maps->map[i][j] == 'E')
 				maps->e++;
 			else if (maps->map[i][j] == 'C')
@@ -73,29 +76,9 @@ void	ft_pars_map(t_game *maps)
 	}
 }
 
-void	ft_stock_wall_space(t_game *maps)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (maps->map[++i])
-	{
-		j = -1;
-		while (maps->map[i][++j])
-		{
-			if (maps->map[i][j] == '1')
-				maps->wall++;
-			else if (maps->map[i][j] == '0')
-				maps->space++;
-		}
-	}
-}
-
 void	ft_error_map(t_game *maps)
 {
 	ft_pars_map(maps);
-	ft_stock_wall_space(maps);
 	if (maps->p < 1 || maps->p > 1)
 	{
 		ft_putstr_fd("Error:\nWTF Bro need  Just 1 player !!\n", 1);

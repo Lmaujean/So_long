@@ -116,15 +116,3 @@ void	ft_freedouble(char **ptr)
 		ptr = 0;
 	}
 }
-
-void	ft_free_game(t_game *game)
-{
-	if (game->map)
-		ft_freedouble(game->map);
-	if (game->init_window)
-		free(game->init_window);
-	if (game->init_mlx)
-		free(game->init_mlx);
-	if (game->img)
-		free(game->img);
-}

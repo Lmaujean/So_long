@@ -16,7 +16,7 @@
 NAME			= so_long
 CC				= gcc
 RM				= rm -f
-CFLAGS			= #-Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 
 #############################################################################
 #							HEADER DECLARATION								#

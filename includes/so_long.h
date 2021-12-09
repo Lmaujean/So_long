@@ -51,6 +51,7 @@ typedef struct s_game
 	int		e;
 	int		wall;
 	int		space;
+	int		move;
 }			t_game;
 
 /******* FONCTION UTILS *******/
@@ -86,7 +87,10 @@ void	ft_choose_img(t_game *game);
 
 /* EVENT */
 
-int	ft_close(int keycode, t_game *game);
-int ft_press(int keycode, t_game *game);
+int		ft_close(int keycode, t_game *game);
+int		ft_press(int keycode, t_game *game);
+
+int		ft_cam_x(t_game *game);
+int		ft_cam_y(t_game *game);
 
 #endif

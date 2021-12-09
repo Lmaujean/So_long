@@ -28,7 +28,7 @@ int	ft_init_img(t_game *game)
 {
 	int			i;
 	const char	*tab[] = {WALL1, FLOOR, PLAYER_FACE1,
-		PLAYER_RIGHT1, PLAYER_LEFT1, PLAYER_BACK1, COLLEC, EXIT};
+		PLAYER_RIGHT1, PLAYER_LEFT1, PLAYER_BACK1, COLLEC, EXIT, BG};
 
 	i = 0;
 	game->img = ft_calloc(sizeof(t_img), NBR_IMG);
@@ -60,8 +60,6 @@ int	ft_init_minilibx(t_game *game)
 		return (0);
 	return (1);
 }
-
-
 
 void	ft_init_struc(t_game *maps)
 {
