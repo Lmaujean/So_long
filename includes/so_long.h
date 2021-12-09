@@ -19,11 +19,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "keycode.h"
-#ifdef __linux__
+# ifdef __linux__
 #  include "../mlx_linux/mlx.h"
 # elif __APPLE__
 #  include <mlx.h>
-#endif
+# endif
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -32,8 +32,8 @@
 
 typedef struct s_pos
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 }			t_pos;
 
 typedef struct s_game
