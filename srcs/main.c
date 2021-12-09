@@ -13,14 +13,21 @@
 
 void	launch_game(t_game *game)
 {
+	int	x;
+	int	y;
+
 	game->main.img = mlx_new_image(game->init_mlx, game->line.x * PXL, \
 									game->line.y * PXL);
 	create_img(&game->main, game->main.img);
 	game->main.height = game->line.y * PXL;
 	game->main.width = game->line.x * PXL;
-	mlx_put_img_to_img(&game->main, &game->img[0], 15, 0);
+	ft_choose_img(game);
+	mlx_put_img_to_img(&game->main, &game->img[3],
+		game->player.x * PXL, game->player.y * PXL);
 	mlx_put_image_to_window(game->init_mlx, game->init_window, \
 							game->main.img, 0, 0);
+	mlx_hook(game->init_window, 17, 0, ft_close, game);
+	mlx_hook(game->init_window, 2, 1L << 0, ft_press, game);
 	mlx_loop(game->init_mlx);
 }
 

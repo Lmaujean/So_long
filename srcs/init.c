@@ -12,25 +12,6 @@
 
 #include "../includes/so_long.h"
 
-// void	ft_choose_img(t_game *game, int x, int y)
-// {
-// 	if (game->map[y][x] == '1')
-// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, WALL1, \
-// 		game->img->width, game->img->height);
-// 	else if (game->map[y][x] == '0')
-// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, FLOOR, \
-// 		game->img->width, game->img->height);
-// 	else if (game->map[y][x] == 'P')
-// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, PLAYER_RIGHT1, \
-// 		game->img->width, game->img->height);
-// 	else if (game->map[y][x] == 'C')
-// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, COLLEC, \
-// 		game->img->width, game->img->height);
-// 	else if (game->map[y][x] == 'E')
-// 		game->img->img = mlx_xpm_file_to_image(game->init_mlx, EXIT, \
-// 		game->img->width, game->img->height);
-// }
-
 void	ft_size_window(t_game *game)
 {
 	if (game->line.x * PXL > DEF_L)
@@ -45,21 +26,19 @@ void	ft_size_window(t_game *game)
 
 int	ft_init_img(t_game *game)
 {
-	int	i;
+	int			i;
+	const char	*tab[] = {WALL1, FLOOR, PLAYER_FACE1,
+		PLAYER_RIGHT1, PLAYER_LEFT1, PLAYER_BACK1, COLLEC, EXIT};
 
 	i = 0;
-	game->img = malloc(sizeof(t_img) * NBR_IMG);
+	game->img = ft_calloc(sizeof(t_img), NBR_IMG);
 	if (!game->img)
-	{
 		return (0);
-	}
 	while (i < NBR_IMG)
 	{
-		game->img[i].img = NULL;
-		game->img[i].img = mlx_xpm_file_to_image(game->init_mlx, PLAYER_FACE1, &game->img[i].width, &game->img[i].height);
+		game->img[i].img = mlx_xpm_file_to_image(game->init_mlx,
+				(char *)tab[i], &game->img[i].width, &game->img[i].height);
 		create_img(&game->img[i], game->img[i].img);
-		game->img[i].width = PXL;
-		game->img[i].height = PXL;
 		i++;
 	}
 	return (1);

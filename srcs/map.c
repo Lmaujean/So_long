@@ -25,7 +25,6 @@ void	ft_get_map(int fd, char *av, t_game *maps)
 	}
 	free(line);
 	maps->map = malloc(sizeof(char *) * (maps->line.y + 1));
-	i = -1;
 	fd = open(av, O_RDONLY);
 	i = -1;
 	while (++i < maps->line.y)
@@ -60,7 +59,12 @@ void	ft_pars_map(t_game *maps)
 				exit(EXIT_FAILURE);
 			}
 			if (maps->map[i][j] == 'P')
+			{
+				maps->map[i][j] = '0';
+				maps->player.x = j;
+				maps->player.y = i;
 				maps->p++;
+			}
 			else if (maps->map[i][j] == 'E')
 				maps->e++;
 			else if (maps->map[i][j] == 'C')

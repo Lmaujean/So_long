@@ -42,6 +42,7 @@ typedef struct s_game
 	void	*init_window;
 	char	**map;
 	t_pos	wind;
+	t_pos	player;
 	t_img	*img;
 	t_img	main;
 	t_pos	line;
@@ -81,5 +82,11 @@ void	ft_check_wall(char **str, int x, int y);
 void	ft_check_y(char **str, int x, int y);
 void	ft_check_rectangular(char **str);
 void	ft_size_window(t_game *game);
+void	ft_choose_img(t_game *game);
+
+/* EVENT */
+
+int	ft_close(int keycode, t_game *game);
+int ft_press(int keycode, t_game *game);
 
 #endif

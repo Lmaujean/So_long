@@ -16,7 +16,7 @@
 NAME			= so_long
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= #-Wall -Wextra -Werror
 
 #############################################################################
 #							HEADER DECLARATION								#
@@ -37,7 +37,8 @@ SRCS			= 	main.c\
 					init.c\
 					map.c\
 					pars.c\
-					stock.c\
+					img.c\
+					event.c\
 					
 
 SRCS_COM		= 	GNL_utils.c\
