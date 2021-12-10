@@ -21,8 +21,9 @@ void	launch_game(t_game *game)
 	ft_choose_img(game);
 	mlx_put_img_to_img(&game->main, &game->img[3],
 		game->player.x * PXL, game->player.y * PXL);
-	mlx_put_image_to_window(game->init_mlx, game->init_window,
-		game->img[8].img, 0, 0);
+	if (game->line.x > DEF_L)
+		mlx_put_image_to_window(game->init_mlx, game->init_window,
+			game->img[8].img, 0, 0);
 	mlx_put_image_to_window(game->init_mlx, game->init_window, game->main.img,
 		ft_cam_x(game), ft_cam_y(game));
 	mlx_hook(game->init_window, 17, 0, ft_close, game);

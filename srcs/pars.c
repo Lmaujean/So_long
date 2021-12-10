@@ -110,7 +110,8 @@ void	ft_check_wall(char **str, int x, int y)
 	int	i;
 
 	i = 0;
-	while (str[0][i] && str[y - 1][i] && i < x)
+	while ((str[0][i] && str[y - 1][i] && i < x) || (str[0][i] \
+		&& str[y - 1][i] == '\0' && x == 0))
 	{
 		if (str[0][i] != '1' || str[y - 1][i] != '1')
 		{

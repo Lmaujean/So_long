@@ -46,12 +46,12 @@ static void	update_maps(t_game *game, t_pos p, int dir)
 		}
 		mlx_put_img_to_img(&game->main, &game->img[1], p.x * PXL, p.y * PXL);
 		mlx_put_img_to_img(&game->main, &game->img[1], x * PXL, y * PXL);
-		mlx_put_img_to_img(&game->main, dir_player(dir, game), x * PXL,
+		mlx_put_img_to_img(&game->main, dir_p(dir, game), x * PXL,
 			y * PXL);
 	}
 	else if (game->map[y][x] == '1' || (game->map[y][x] == 'E' && game->c != 0))
 	{
-		game->player = pos;
+		game->player = p;
 		mlx_put_img_to_img(&game->main, &game->img[1], p.x * PXL, p.y * PXL);
 		mlx_put_img_to_img(&game->main, dir_p(dir, game), p.x * PXL, p.y * PXL);
 	}
